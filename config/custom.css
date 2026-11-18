@@ -1,0 +1,28 @@
+:root {
+  --background-color: #090d18;
+  --hero-color: linear-gradient(112deg, #141a2b 0%, #171a31 58%, #211a3a 100%);
+  --surface-color: #121827;
+  --surface-raised: #1d2639;
+  --hover-color: #1a2233;
+  --line-color: rgba(179, 190, 218, 0.12);
+  --text-color: #f3f4fb;
+  --muted-color: #8e98ae;
+  --accent-color: #b7a0ff;
+  --accent-hover: #c8b7ff;
+  --focus-color: rgba(183, 160, 255, 0.17);
+  --green-color: #71e3ba;
+  --card-border-hover: rgba(183, 160, 255, 0.55);
+  --image-placeholder: linear-gradient(145deg, #242b43, #191d30);
+}
+
+body {
+  background-image:
+    radial-gradient(ellipse at 82% 4%, rgba(86, 62, 157, 0.13), transparent 34rem),
+    radial-gradient(ellipse at 7% 36%, rgba(51, 91, 135, 0.08), transparent 28rem);
+  background-attachment: fixed;
+}
+
+::selection {
+  color: #111020;
+  background: var(--accent-color);
+}

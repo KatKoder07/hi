@@ -3,38 +3,91 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
-
-    <script src="config/main.js" type="module"></script>
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
-
-      iframe {
-        width: 100%;
-        height: 100vh;
-        border: none;
-      }
-    </style>
+    <meta name="theme-color" content="#090d18" />
+    <title>Play | Native Arcade</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="config/main.css" />
+    <link rel="stylesheet" href="config/custom.css" />
   </head>
-  <body>
-    <iframe id="gameFrame"></iframe>
-
+  <body class="play-page">
+    <header class="play-header">
+      <a class="brand" href="./" aria-label="Back to the game library">
+        <span class="brand-mark" aria-hidden="true">N</span>
+        <span>Native<span class="brand-period">.</span></span>
+      </a>
+      <div class="play-title">
+        <strong id="gameName">Loading game...</strong>
+        <span>Now playing</span>
+      </div>
+      <div class="play-actions">
+        <a class="play-button" href="./" aria-label="Back to game library">
+          <span aria-hidden="true">←</span> Library
+        </a>
+        <button id="refreshGame" class="play-button" type="button" aria-label="Refresh game">
+          <span aria-hidden="true">↻</span> Refresh
+        </button>
+        <button
+          id="fullscreenGame"
+          class="play-button primary"
+          type="button"
+          aria-label="Enter fullscreen"
+        >
+          <span aria-hidden="true">⛶</span> Fullscreen
+        </button>
+      </div>
+    </header>
+    <main id="gameFrameWrap" class="play-frame-wrap">
+      <iframe
+        id="gameFrame"
+        class="play-frame"
+        title="Game"
+        allow="autoplay; fullscreen"
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+      <p id="playMessage" class="play-message" hidden></p>
+    </main>
     <script>
-      var serverUrl1 = "https://gms.parcoil.com";
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const gameUrl = urlParams.get("gameurl");
+      const gameParams = new URLSearchParams(window.location.search);
+      const gameUrl = gameParams.get("gameurl");
+      const gameName = gameParams.get("gamename") || "Game";
+      const gameFrame = document.getElementById("gameFrame");
+      const gameFrameWrap = document.getElementById("gameFrameWrap");
+      const playMessage = document.getElementById("playMessage");
+      const gameNameLabel = document.getElementById("gameName");
+      const safeGameUrl = /^[a-zA-Z0-9_-]+\/?$/.test(gameUrl || "");
 
-      if (!gameUrl) {
-        alert("Game URL not provided!");
-        window.location.href = "/"; // Redirect to homepage if game URL is missing
+      gameNameLabel.textContent = gameName;
+      document.title = `${gameName} | Native Arcade`;
+
+      if (safeGameUrl) {
+        gameFrame.src = `https://gms.parcoil.com/${gameUrl}`;
       } else {
-        const embedUrl = `${serverUrl1}/${gameUrl}`;
-        document.getElementById("gameFrame").src = embedUrl;
+        gameFrame.hidden = true;
+        playMessage.hidden = false;
+        playMessage.textContent = "This game link is missing or invalid.";
+        gameNameLabel.textContent = "Game unavailable";
       }
+
+      document.getElementById("refreshGame").addEventListener("click", () => {
+        if (safeGameUrl) {
+          gameFrame.src = gameFrame.src;
+        }
+      });
+
+      document.getElementById("fullscreenGame").addEventListener("click", async () => {
+        try {
+          await gameFrameWrap.requestFullscreen();
+        } catch (error) {
+          console.error("Could not enter fullscreen:", error);
+          playMessage.hidden = false;
+          playMessage.textContent = "Fullscreen is not available in this browser.";
+        }
+      });
     </script>
   </body>
 </html>

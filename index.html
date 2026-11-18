@@ -3,23 +3,101 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Find your next favorite game in the Native arcade."
+    />
+    <meta name="theme-color" content="#090d18" />
     <title>Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="config/main.css" />
+    <link rel="stylesheet" href="config/custom.css" />
     <script src="config/main.js" type="module"></script>
   </head>
   <body>
-    <div class="center">
-      <h1 id="title"></h1>
-      <p id="subtitle"></p>
-    </div>
-    <div class="center">
-      <input type="text" id="searchInput" placeholder="Search games" />
-    </div>
-    <div id="gamesContainer"></div>
-    <div class="footer">
-      <a style="font-weight: 700">a site by
-      </a><a style="font-weight: 700" class="link" href="https://dsc.gg/parcoil">parcoil network</a>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="./" aria-label="Native arcade home">
+          <span class="brand-mark" aria-hidden="true">N</span>
+          <span id="brandName">Native<span class="brand-period">.</span></span>
+        </a>
+        <div class="header-label">
+          <span class="status-dot" aria-hidden="true"></span>
+          THE ARCADE IS OPEN
+        </div>
+      </header>
+
+      <main>
+        <section class="hero" aria-labelledby="title">
+          <div class="hero-copy">
+            <p class="eyebrow"><span aria-hidden="true">✦</span> YOUR NEXT FAVORITE GAME</p>
+            <h1 id="title">Find your next <span>favorite.</span></h1>
+            <p id="subtitle" class="hero-description">
+              A whole world of games, one click away.
+            </p>
+            <div class="hero-stats">
+              <span class="stat-icon" aria-hidden="true">▦</span>
+              <span id="gameCount">Loading the collection...</span>
+            </div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <span class="art-spark art-spark-one">✦</span>
+            <span class="art-spark art-spark-two">✧</span>
+            <div class="art-orbit orbit-one"></div>
+            <div class="art-orbit orbit-two"></div>
+            <div class="art-tile tile-back">PLAY</div>
+            <div class="art-tile tile-front"><span>▶</span></div>
+          </div>
+        </section>
+
+        <section class="library" aria-labelledby="libraryTitle">
+          <div class="library-heading">
+            <div>
+              <p class="eyebrow section-eyebrow">PICK YOUR PLAY</p>
+              <h2 id="libraryTitle">The game library</h2>
+            </div>
+            <label class="search-box" for="searchInput">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="10.8" cy="10.8" r="6.8"></circle>
+                <path d="m16 16 4.2 4.2"></path>
+              </svg>
+              <input
+                type="search"
+                id="searchInput"
+                placeholder="Search games..."
+                autocomplete="off"
+                aria-label="Search games"
+              />
+              <button id="clearSearch" class="clear-search" type="button" aria-label="Clear search" hidden>
+                <span aria-hidden="true">×</span>
+              </button>
+            </label>
+          </div>
+          <div class="results-row">
+            <p id="searchStatus" aria-live="polite">Browse the collection</p>
+            <span class="results-hint">ALL GAMES</span>
+          </div>
+          <div id="gamesContainer" class="games-grid" aria-live="polite">
+            <p class="grid-message">Loading games...</p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <a class="footer-brand" href="./">NATIVE<span class="brand-period">.</span></a>
+        <p>A good game makes any day better.</p>
+        <div class="footer-credit">
+          <span>a site by</span>
+          <a class="link" href="https://dsc.gg/parcoil" target="_blank" rel="noopener noreferrer">
+            parcoil network
+          </a>
+        </div>
+      </footer>
     </div>
   </body>
 </html>
-
